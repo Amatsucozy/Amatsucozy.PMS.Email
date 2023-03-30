@@ -20,5 +20,8 @@ jobs:
     - name: Pack
       run: dotnet pack Amatsucozy.PMS.Email.Contracts/Amatsucozy.PMS.Email.Contracts.csproj --no-restore -c Release
 
+    - name: Docker login
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
     - name: Push
       run: dotnet nuget push Amatsucozy.PMS.Email.Contracts/bin/Release/Amatsucozy.PMS.Email.Contracts.${env:NBGV_NuGetPackageVersion}.nupkg -s "github" -k ${{ secrets.GITHUB_TOKEN }}

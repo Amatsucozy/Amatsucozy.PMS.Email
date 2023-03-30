@@ -5,18 +5,11 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <UserSecretsId>cc119f1e-94b2-4d5a-8c8d-db8ae34bb143</UserSecretsId>
+        <UserSecretsId>b53cfa75-fef4-4b77-97a1-f97a4ee0f4e9</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Amatsucozy.PMS.Shared.API" Version="1.0.0"/>
         <PackageReference Include="Amatsucozy.PMS.Shared.Helpers" Version="1.0.4"/>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.3"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
-        <PackageReference Include="Nerdbank.GitVersioning" Version="3.5.119">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>

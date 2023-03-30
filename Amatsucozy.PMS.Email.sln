@@ -8,7 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A205A8BA-8A2B-4B0B-A55F-EBC7370249ED}"
 	ProjectSection(SolutionItems) = preProject
 		nuget.config = nuget.config
-		Dockerfile = Dockerfile
+		API.Dockerfile = API.Dockerfile
+		Messaging.Dockerfile = Messaging.Dockerfile
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amatsucozy.PMS.Email.Infrastructure", "Amatsucozy.PMS.Email.Infrastructure\Amatsucozy.PMS.Email.Infrastructure.csproj", "{77BEC181-6C02-42F7-945F-857F6996DBFD}"
@@ -20,9 +21,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		.github\workflows\Email.Analyze.yml = .github\workflows\Email.Analyze.yml
 		.github\workflows\Email.Contracts.Pack.yml = .github\workflows\Email.Contracts.Pack.yml
 		.github\workflows\Email.API.Publish.yml = .github\workflows\Email.API.Publish.yml
+		.github\workflows\Email.Messaging.Publish.yml = .github\workflows\Email.Messaging.Publish.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amatsucozy.PMS.Email.API", "Amatsucozy.PMS.Email.API\Amatsucozy.PMS.Email.API.csproj", "{B4A97344-3AB6-4260-B74C-C109BD43E149}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amatsucozy.PMS.Email.Messaging", "Amatsucozy.PMS.Email.Messaging\Amatsucozy.PMS.Email.Messaging.csproj", "{9D608B4E-08EB-4DA9-90E4-0EE092565B7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,5 +53,9 @@ Global
 		{B4A97344-3AB6-4260-B74C-C109BD43E149}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4A97344-3AB6-4260-B74C-C109BD43E149}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4A97344-3AB6-4260-B74C-C109BD43E149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D608B4E-08EB-4DA9-90E4-0EE092565B7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D608B4E-08EB-4DA9-90E4-0EE092565B7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D608B4E-08EB-4DA9-90E4-0EE092565B7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D608B4E-08EB-4DA9-90E4-0EE092565B7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

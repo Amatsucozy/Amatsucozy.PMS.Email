@@ -15,7 +15,8 @@ public class EmailTemplatesController : PublicController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateTemplate(CreateTemplateRequest createTemplateRequest, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateTemplate(CreateTemplateRequest createTemplateRequest,
+        CancellationToken cancellationToken)
     {
         await _publishEndpoint.Publish(createTemplateRequest, cancellationToken);
 

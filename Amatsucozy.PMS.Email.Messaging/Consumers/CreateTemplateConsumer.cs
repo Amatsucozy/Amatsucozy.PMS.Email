@@ -3,7 +3,7 @@ using Amatsucozy.PMS.Email.Core.Templates;
 using Amatsucozy.PMS.Email.Infrastructure;
 using MassTransit;
 
-namespace Amatsucozy.PMS.Email.API.Consumers;
+namespace Amatsucozy.PMS.Email.Messaging.Consumers;
 
 public sealed class CreateTemplateConsumer : IConsumer<CreateTemplateRequest>
 {
@@ -14,7 +14,7 @@ public sealed class CreateTemplateConsumer : IConsumer<CreateTemplateRequest>
         _context = context;
     }
 
-    public Task Consume(ConsumeContext<CreateTemplateRequest> context)
+    public async Task Consume(ConsumeContext<CreateTemplateRequest> context)
     {
         var template = new EmailTemplate
         {
@@ -25,8 +25,6 @@ public sealed class CreateTemplateConsumer : IConsumer<CreateTemplateRequest>
         };
 
         _context.Templates.Add(template);
-        _context.SaveChanges();
-
-        return Task.CompletedTask;
+        await _context.SaveChangesAsync(context.CancellationToken);
     }
 }

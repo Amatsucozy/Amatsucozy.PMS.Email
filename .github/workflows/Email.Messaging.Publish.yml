@@ -1,4 +1,4 @@
-name: Publish Email.API Docker image
+name: Publish Email.Messaging Docker image
 
 on:
   workflow_dispatch:
@@ -20,10 +20,10 @@ jobs:
           dotnet restore Amatsucozy.PMS.Email.sln
 
       - name: Build the Docker image
-        run: docker build . -f API.Dockerfile -t amatsucozy/pms.email.api -t amatsucozy/pms.email.api:1.0.0 -t amatsucozy/pms.email.api:1.0 -t amatsucozy/pms.email.api:1
+        run: docker build . -f Messaging.Dockerfile -t amatsucozy/pms.email.messaging -t amatsucozy/pms.email.messaging:1.0.0 -t amatsucozy/pms.email.messaging:1.0 -t amatsucozy/pms.email.messaging:1
 
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push the Docker image
-        run: docker push -a amatsucozy/pms.email.api
+        run: docker push -a amatsucozy/pms.email.messaging

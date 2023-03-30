@@ -8,10 +8,9 @@ public sealed class DbContextFactory : IDesignTimeDbContextFactory<EmailDbContex
     public EmailDbContext CreateDbContext(string[] args)
     {
         var options = new DbContextOptionsBuilder<EmailDbContext>()
-            .UseNpgsql(DbConstants.ConnectionString, sqlBuilder =>
-            {
-                sqlBuilder.MigrationsAssembly(typeof(InfrastructureMarker).Assembly.GetName().Name);
-            }).Options;
+            .UseNpgsql(DbConstants.ConnectionString,
+                sqlBuilder => { sqlBuilder.MigrationsAssembly(typeof(InfrastructureMarker).Assembly.GetName().Name); })
+            .Options;
 
         return new EmailDbContext(options);
     }

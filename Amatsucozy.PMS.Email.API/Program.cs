@@ -1,12 +1,12 @@
 using Amatsucozy.PMS.Email.API;
 using Amatsucozy.PMS.Email.Infrastructure;
+using Amatsucozy.PMS.Shared.Helpers.Extensions;
 using Amatsucozy.PMS.Shared.Helpers.MessageQueues;
 using Amatsucozy.PMS.Shared.Helpers.MessageQueues.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 if (builder.Environment.EnvironmentName is not "Development")
 {
     var arguments = Environment.GetEnvironmentVariables();
@@ -16,7 +16,6 @@ if (builder.Environment.EnvironmentName is not "Development")
 }
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMessageQueue(builder.Configuration, typeof(ApiMarker));
@@ -30,7 +29,6 @@ builder.Services.AddDbContext<EmailDbContext>(
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

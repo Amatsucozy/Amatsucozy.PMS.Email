@@ -11,4 +11,11 @@
         <PackageTags>pms email contracts nuget</PackageTags>
     </PropertyGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Nerdbank.GitVersioning" Version="3.5.119">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
 </Project>

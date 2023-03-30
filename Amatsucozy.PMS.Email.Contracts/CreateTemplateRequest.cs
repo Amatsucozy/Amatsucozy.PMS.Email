@@ -1,8 +1,6 @@
-using Amatsucozy.PMS.Shared.Core.Modelling;
+namespace Amatsucozy.PMS.Email.Contracts;
 
-namespace Amatsucozy.PMS.Email.Core.Templates;
-
-public sealed class EmailTemplate : Entity
+public sealed class CreateTemplateRequest
 {
     public required string Key { get; init; }
     

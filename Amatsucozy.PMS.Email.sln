@@ -14,6 +14,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amatsucozy.PMS.Email.Infras
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amatsucozy.PMS.Email.Contracts", "Amatsucozy.PMS.Email.Contracts\Amatsucozy.PMS.Email.Contracts.csproj", "{50D6E15F-F308-491F-BBE0-4EC6DDF0DCC4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{922DDCFC-72F2-4788-8C4F-8BCF61F3D68B}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\Email.Analyze.yml = .github\workflows\Email.Analyze.yml
+		.github\workflows\Email.Contracts.Pack.yml = .github\workflows\Email.Contracts.Pack.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

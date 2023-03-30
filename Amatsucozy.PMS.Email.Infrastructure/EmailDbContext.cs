@@ -12,7 +12,7 @@ public sealed class EmailDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.HasDefaultSchema("Email");
+        modelBuilder.HasDefaultSchema("email");
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(InfrastructureMarker).Assembly);
     }
 }

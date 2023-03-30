@@ -4,6 +4,11 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Title>Amatsucozy.PMS.Email.Contracts</Title>
+        <Authors>Amatsucozy</Authors>
+        <Description>Contracts for sending emails</Description>
+        <Copyright>Amatsucozy</Copyright>
+        <PackageTags>pms email contracts nuget</PackageTags>
     </PropertyGroup>
 
 </Project>

@@ -15,7 +15,7 @@ namespace Amatsucozy.PMS.Email.Infrastructure.Migrations
                 name: "email");
 
             migrationBuilder.CreateTable(
-                name: "EmailTemplate",
+                name: "Templates",
                 schema: "email",
                 columns: table => new
                 {
@@ -26,11 +26,11 @@ namespace Amatsucozy.PMS.Email.Infrastructure.Migrations
                     EnableMultipleReceivers = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false)
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmailTemplate", x => x.Id);
+                    table.PrimaryKey("PK_Templates", x => x.Id);
                 });
         }
 
@@ -38,7 +38,7 @@ namespace Amatsucozy.PMS.Email.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "EmailTemplate",
+                name: "Templates",
                 schema: "email");
         }
     }

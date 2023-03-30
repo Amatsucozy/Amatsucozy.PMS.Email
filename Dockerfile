@@ -13,10 +13,10 @@ COPY ["nuget.config", "nuget.config"]
 RUN dotnet restore "Amatsucozy.PMS.Email.API/Amatsucozy.PMS.Email.API.csproj"
 COPY . .
 WORKDIR "/src/Amatsucozy.PMS.Email.API"
-RUN dotnet build "Amatsucozy.PMS.Email.API.csproj" -c Release -o /app/build
+RUN dotnet build "Amatsucozy.PMS.Email.API.csproj" --no-restore -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Amatsucozy.PMS.Email.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "Amatsucozy.PMS.Email.API.csproj" --no-restore -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

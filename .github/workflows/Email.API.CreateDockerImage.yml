@@ -17,7 +17,7 @@ jobs:
     - name: Install dependencies
       run: |
         dotnet tool restore
-        dotnet restore Amatsucozy.PMS.Email.Contracts/Amatsucozy.PMS.Email.Contracts.csproj
+        dotnet restore Amatsucozy.PMS.Email.sln
       
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag amatsucozy/amatsucozy.pms.email:1.0 amatsucozy/amatsucozy.pms.email:latest

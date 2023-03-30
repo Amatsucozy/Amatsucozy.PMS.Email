@@ -20,7 +20,7 @@ jobs:
           dotnet restore Amatsucozy.PMS.Email.sln
 
       - name: Build the Docker image
-        run: docker build . -f Dockerfile -t amatsucozy/pms.email.api -t amatsucozy/pms.email.api:1.0.${{ github.run_number }}
+        run: docker build . -f Dockerfile -t amatsucozy/pms.email.api -t amatsucozy/pms.email.api:1.0.0 -t amatsucozy/pms.email.api:1.0 -t amatsucozy/pms.email.api:1
 
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}

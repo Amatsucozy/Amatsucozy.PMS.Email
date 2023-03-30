@@ -31,4 +31,8 @@
       <ProjectReference Include="..\Amatsucozy.PMS.Email.Infrastructure\Amatsucozy.PMS.Email.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="version.json" />
+    </ItemGroup>
+
 </Project>

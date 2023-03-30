@@ -7,23 +7,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        
-    - name: Setup credentials
-      run: dotnet nuget update source github --username Amatsucozy --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-    - name: Install dependencies
-      run: |
-        dotnet tool restore
-        dotnet restore Amatsucozy.PMS.Email.sln
-      
-    - name: Build the Docker image
-      run: docker build . -f Dockerfile -t amatsucozy/amatsucozy.pms.email:1.0.${{ github.run_number }}
+      - name: Setup credentials
+        run: dotnet nuget update source github --username Amatsucozy --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
 
-    - name: Docker login
-      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      
-    - name: Push the Docker image
-      run: docker push amatsucozy/amatsucozy.pms.email:1.0.${{ github.run_number }}
+      - name: Install dependencies
+        run: |
+          dotnet tool restore
+          dotnet restore Amatsucozy.PMS.Email.sln
+
+      - name: Build the Docker image
+        run: docker build . -f Dockerfile -t amatsucozy/pms.email.api -t amatsucozy/pms.email.api:${env:NBGV_NuGetPackageVersion}-${{ github.run_number }}
+
+      - name: Docker login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push the Docker image
+        run: docker push -a amatsucozy/pms.email.api

@@ -19,6 +19,7 @@ public sealed class CreateTemplateConsumer : IConsumer<CreateTemplateRequest>
         var template = new EmailTemplate
         {
             Key = context.Message.Key,
+            Subject = context.Message.Subject,
             Body = context.Message.Body,
             Placeholders = context.Message.Placeholders,
             EnableMultipleReceivers = context.Message.EnableMultipleReceivers

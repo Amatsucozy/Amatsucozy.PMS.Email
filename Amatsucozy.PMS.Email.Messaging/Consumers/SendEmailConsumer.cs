@@ -26,8 +26,18 @@ public sealed class SendEmailConsumer : IConsumer<EmailSendRequest>
         {
             return;
         }
-        
-        await _emailSender.SendEmailAsync(
+
+        if (!template.EnableMultipleReceivers)
+        {
+            await _emailSender.SendEmailAsync(
+                context.Message.To.First(),
+                template.Subject,
+                template.PlainBody,
+                template.Body);
+            return;
+        }
+
+        await _emailSender.SendEmailsAsync(
             context.Message.To,
             context.Message.Cc,
             context.Message.Bcc,

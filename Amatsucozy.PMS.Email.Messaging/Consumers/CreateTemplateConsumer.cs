@@ -20,9 +20,10 @@ public sealed class CreateTemplateConsumer : IConsumer<CreateTemplateRequest>
         {
             Key = context.Message.Key,
             Subject = context.Message.Subject,
+            PlainBody = context.Message.PlainBody,
             Body = context.Message.Body,
             Placeholders = context.Message.Placeholders,
-            EnableMultipleReceivers = context.Message.EnableMultipleReceivers
+            EnableMultipleReceivers = context.Message.EnableMultipleReceivers,
         };
 
         _context.Templates.Add(template);

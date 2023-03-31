@@ -10,17 +10,45 @@ public sealed class SendgridApiEmailSender : IEmailSender
 {
     private readonly SendGridClient _sendGridClient;
     private readonly IOptionsMonitor<SendgridOptions> _optionsMonitor;
+    private readonly ILogger<SendgridApiEmailSender> _logger;
 
-    public SendgridApiEmailSender(SendGridClient sendGridClient, IOptionsMonitor<SendgridOptions> optionsMonitor)
+    public SendgridApiEmailSender(
+        SendGridClient sendGridClient,
+        IOptionsMonitor<SendgridOptions> optionsMonitor,
+        ILogger<SendgridApiEmailSender> logger)
     {
         _sendGridClient = sendGridClient;
         _optionsMonitor = optionsMonitor;
+        _logger = logger;
     }
 
     public async Task SendEmailAsync(
-        IEnumerable<string> to,
-        IEnumerable<string> cc,
-        IEnumerable<string> bcc,
+        string recipient,
+        string subject,
+        string plainTextMessage,
+        string htmlMessage,
+        CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(recipient))
+        {
+            _logger.LogWarning("Recipient is null or empty");
+            return;
+        }
+
+        var email = MailHelper.CreateSingleEmail(
+            new EmailAddress(_optionsMonitor.CurrentValue.From, _optionsMonitor.CurrentValue.FromName),
+            new EmailAddress(recipient),
+            subject,
+            plainTextMessage,
+            htmlMessage);
+
+        await _sendGridClient.SendEmailAsync(email, cancellationToken);
+    }
+
+    public async Task SendEmailsAsync(
+        IEnumerable<string> toRecipients,
+        IEnumerable<string> ccRecipients,
+        IEnumerable<string> bccRecipients,
         string subject,
         string plainTextMessage,
         string htmlMessage,
@@ -28,10 +56,23 @@ public sealed class SendgridApiEmailSender : IEmailSender
     {
         var email = MailHelper.CreateSingleEmailToMultipleRecipients(
             new EmailAddress(_optionsMonitor.CurrentValue.From, _optionsMonitor.CurrentValue.FromName),
-            to.Select(emailString => new EmailAddress(emailString)).ToList(),
+            toRecipients.Where(r => !string.IsNullOrWhiteSpace(r))
+                .Select(r => new EmailAddress(r)).ToList(),
             subject,
             plainTextMessage,
             htmlMessage);
+
+        if (ccRecipients.Any())
+        {
+            email.AddCcs(ccRecipients.Where(r => !string.IsNullOrWhiteSpace(r))
+                .Select(r => new EmailAddress(r)).ToList());
+        }
+
+        if (bccRecipients.Any())
+        {
+            email.AddBccs(bccRecipients.Where(r => !string.IsNullOrWhiteSpace(r))
+                .Select(r => new EmailAddress(r)).ToList());
+        }
 
         await _sendGridClient.SendEmailAsync(email, cancellationToken);
     }

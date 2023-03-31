@@ -19,10 +19,9 @@ public sealed class EmailTemplateModelConfig : IEntityTypeConfiguration<EmailTem
 
         builder.Property(et => et.Placeholders)
             .HasConversion(
-                enumerable => JsonSerializer.Serialize(
-                    enumerable, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<IEnumerable<string>>(
-                    json, JsonSerializerOptions.Default) ?? new List<string>(),
+                enumerable => JsonSerializer.Serialize(enumerable, JsonSerializerOptions.Default),
+                json => JsonSerializer.Deserialize<IEnumerable<string>>(json, JsonSerializerOptions.Default)
+                        ?? new List<string>(),
                 StringCollectionComparer);
     }
 }

@@ -1,4 +1,5 @@
 using System.Text;
+using Amatsucozy.PMS.Email.Core.Templates.Exceptions;
 using Amatsucozy.PMS.Shared.Core.Modelling;
 using Amatsucozy.PMS.Shared.Core.Results;
 
@@ -18,21 +19,30 @@ public sealed class EmailTemplate : Entity
 
     public Result<string> BuildHtmlTemplate(IDictionary<string, string> placeholderValues)
     {
-        if (string.IsNullOrWhiteSpace(Body)) return new ArgumentException("Email body cannot be null or empty.");
+        if (string.IsNullOrWhiteSpace(Body))
+        {
+            return new EmailBodyIsBlankException();
+        }
 
         var startIndex = Body.IndexOf("{{", 0, StringComparison.Ordinal);
         var endIndex = Body.IndexOf("}}", startIndex, StringComparison.Ordinal);
 
-        if (startIndex == -1 || endIndex == -1) return new Exception("Email body does not contain any placeholders.");
+        if (startIndex == -1 || endIndex == -1)
+        {
+            return Body;
+        }
 
         var sb = new StringBuilder();
         sb.Append(Body[..startIndex]);
+
         do
         {
             var placeholderKey = Body.Substring(startIndex + 2, endIndex - startIndex - 2);
 
             if (!placeholderValues.ContainsKey(placeholderKey))
-                return new ArgumentException($"Email body contains a placeholder with no value: {placeholderKey}.");
+            {
+                return new PlaceholderWithoutValueException(placeholderKey);
+            }
 
             sb.Append(placeholderValues[placeholderKey]);
             startIndex = Body.IndexOf("{{", endIndex, StringComparison.Ordinal);
@@ -45,8 +55,11 @@ public sealed class EmailTemplate : Entity
 
             sb.Append(Body[(endIndex + 2)..startIndex]);
             endIndex = Body.IndexOf("}}", startIndex, StringComparison.Ordinal);
+
             if (endIndex == -1)
-                return new ArgumentException("Email body contains an opening placeholder but no closing placeholder.");
+            {
+                return new PlaceholderNotClosedException(placeholderKey);
+            }
         } while (true);
 
         return sb.ToString();

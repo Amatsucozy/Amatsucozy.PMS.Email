@@ -28,8 +28,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amatsucozy.PMS.Email.API", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amatsucozy.PMS.Email.Messaging", "Amatsucozy.PMS.Email.Messaging\Amatsucozy.PMS.Email.Messaging.csproj", "{9D608B4E-08EB-4DA9-90E4-0EE092565B7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amatsucozy.PMS.Email.Benchmark", "Amatsucozy.PMS.Email.Benchmark\Amatsucozy.PMS.Email.Benchmark.csproj", "{7A42D935-285D-400F-847B-6841B4D87516}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,9 +57,5 @@ Global
 		{9D608B4E-08EB-4DA9-90E4-0EE092565B7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D608B4E-08EB-4DA9-90E4-0EE092565B7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D608B4E-08EB-4DA9-90E4-0EE092565B7E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A42D935-285D-400F-847B-6841B4D87516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A42D935-285D-400F-847B-6841B4D87516}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A42D935-285D-400F-847B-6841B4D87516}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A42D935-285D-400F-847B-6841B4D87516}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -27,14 +27,27 @@ public sealed class SendEmailConsumer : IConsumer<EmailSendRequest>
             return;
         }
 
+        var plainBodyBuildResult = template.BuildPlainTextTemplate(context.Message.PlaceholderMappings);
+
+        if (!plainBodyBuildResult.IsSuccess)
+        {
+            throw plainBodyBuildResult.Exception!;
+        }
+        
+        var htmlBodyBuildResult = template.BuildHtmlTemplate(context.Message.PlaceholderMappings);
+
+        if (!htmlBodyBuildResult.IsSuccess)
+        {
+            throw htmlBodyBuildResult.Exception!;
+        }
+
         if (!template.EnableMultipleReceivers)
         {
             await _emailSender.SendEmailAsync(
                 context.Message.To.First(),
                 template.Subject,
-                template.PlainBody,
-                template.BuildHtmlTemplate(context.Message.PlaceholderMappings).Value ??
-                "There was an error building the email body.");
+                plainBodyBuildResult.Value!,
+                htmlBodyBuildResult.Value!);
             return;
         }
 
@@ -43,8 +56,7 @@ public sealed class SendEmailConsumer : IConsumer<EmailSendRequest>
             context.Message.Cc,
             context.Message.Bcc,
             template.Subject,
-            template.PlainBody,
-            template.BuildHtmlTemplate(context.Message.PlaceholderMappings).Value ??
-            "There was an error building the email body.");
+            plainBodyBuildResult.Value!,
+            htmlBodyBuildResult.Value!);
     }
 }

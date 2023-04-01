@@ -42,7 +42,7 @@ public sealed class SendGridApiEmailSender : IEmailSender
             plainTextMessage,
             htmlMessage);
 
-        await _sendGridClient.SendEmailAsync(email, cancellationToken);
+        var response = await _sendGridClient.SendEmailAsync(email, cancellationToken);
     }
 
     public async Task SendEmailsAsync(

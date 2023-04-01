@@ -32,13 +32,15 @@ builder.ConfigureHostConfiguration(configurationBuilder => { configurationBuilde
                 sqlBuilder => { sqlBuilder.MigrationsAssembly(typeof(InfrastructureMarker).Assembly.GetName().Name); }
             ));
 
+        var sendGridOptionsSection = context.Configuration.GetSection(nameof(SendGridOptions));
         serviceCollection.AddSendGrid(options =>
         {
-            options.ApiKey = context.Configuration
-                .GetSection(nameof(SendGridOptions))
+            options.ApiKey = sendGridOptionsSection
                 .GetValue<string>(nameof(SendGridOptions.ApiKey));
         });
         serviceCollection.AddScoped<IEmailSender, SendGridApiEmailSender>();
+
+        serviceCollection.Configure<SendGridOptions>(sendGridOptionsSection);
     });
 
 var host = builder.Build();

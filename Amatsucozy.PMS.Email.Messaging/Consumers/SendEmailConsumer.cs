@@ -8,8 +8,8 @@ namespace Amatsucozy.PMS.Email.Messaging.Consumers;
 public sealed class SendEmailConsumer : IConsumer<EmailSendRequest>
 {
     private readonly EmailDbContext _context;
-    private readonly ILogger<SendEmailConsumer> _logger;
     private readonly IEmailSender _emailSender;
+    private readonly ILogger<SendEmailConsumer> _logger;
 
     public SendEmailConsumer(EmailDbContext context, ILogger<SendEmailConsumer> logger, IEmailSender emailSender)
     {
@@ -33,7 +33,8 @@ public sealed class SendEmailConsumer : IConsumer<EmailSendRequest>
                 context.Message.To.First(),
                 template.Subject,
                 template.PlainBody,
-                template.Body);
+                template.BuildHtmlTemplate(context.Message.PlaceholderMappings).Value ??
+                "There was an error building the email body.");
             return;
         }
 
@@ -43,6 +44,7 @@ public sealed class SendEmailConsumer : IConsumer<EmailSendRequest>
             context.Message.Bcc,
             template.Subject,
             template.PlainBody,
-            template.Body);
+            template.BuildHtmlTemplate(context.Message.PlaceholderMappings).Value ??
+            "There was an error building the email body.");
     }
 }

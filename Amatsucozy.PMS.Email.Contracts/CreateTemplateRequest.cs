@@ -6,11 +6,9 @@ public sealed class CreateTemplateRequest
     
     public required string Subject { get; init; }
     
-    public string PlainBody { get; init; }
+    public required string PlainBody { get; init; }
 
     public required string Body { get; init; }
-
-    public required IEnumerable<string> Placeholders { get; init; }
 
     public bool EnableMultipleReceivers { get; init; }
 }

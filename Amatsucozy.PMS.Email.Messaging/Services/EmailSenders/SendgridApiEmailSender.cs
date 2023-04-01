@@ -8,9 +8,9 @@ namespace Amatsucozy.PMS.Email.Messaging.Services.EmailSenders;
 
 public sealed class SendgridApiEmailSender : IEmailSender
 {
-    private readonly SendGridClient _sendGridClient;
-    private readonly IOptionsMonitor<SendgridOptions> _optionsMonitor;
     private readonly ILogger<SendgridApiEmailSender> _logger;
+    private readonly IOptionsMonitor<SendgridOptions> _optionsMonitor;
+    private readonly SendGridClient _sendGridClient;
 
     public SendgridApiEmailSender(
         SendGridClient sendGridClient,

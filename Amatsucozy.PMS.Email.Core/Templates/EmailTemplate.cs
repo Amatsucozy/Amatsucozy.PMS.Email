@@ -17,6 +17,54 @@ public sealed class EmailTemplate : Entity
 
     public bool EnableMultipleReceivers { get; init; }
 
+    public Result<string> BuildPlainTextTemplate(IDictionary<string, string> placeholderValues)
+    {
+        if (string.IsNullOrWhiteSpace(PlainBody))
+        {
+            return new EmailBodyIsBlankException();
+        }
+
+        var startIndex = PlainBody.IndexOf("{{", 0, StringComparison.Ordinal);
+        var endIndex = PlainBody.IndexOf("}}", startIndex, StringComparison.Ordinal);
+
+        if (startIndex == -1 || endIndex == -1)
+        {
+            return PlainBody;
+        }
+
+        var sb = new StringBuilder();
+        sb.Append(PlainBody[..startIndex]);
+
+        do
+        {
+            var placeholderKey = PlainBody.Substring(startIndex + 2, endIndex - startIndex - 2);
+
+            if (!placeholderValues.ContainsKey(placeholderKey))
+            {
+                return new PlaceholderWithoutValueException(placeholderKey);
+            }
+
+            sb.Append(placeholderValues[placeholderKey]);
+            startIndex = PlainBody.IndexOf("{{", endIndex, StringComparison.Ordinal);
+
+            if (startIndex == -1)
+            {
+                sb.Append(PlainBody[(endIndex + 2)..]);
+                break;
+            }
+
+            sb.Append(PlainBody[(endIndex + 2)..startIndex]);
+            endIndex = PlainBody.IndexOf("}}", startIndex, StringComparison.Ordinal);
+
+            if (endIndex == -1)
+            {
+                return new PlaceholderNotClosedException(placeholderKey);
+            }
+        } while (true);
+
+        return sb.ToString();
+    }
+
     public Result<string> BuildHtmlTemplate(IDictionary<string, string> placeholderValues)
     {
         if (string.IsNullOrWhiteSpace(Body))

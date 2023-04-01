@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Amatsucozy.PMS.Email.Infrastructure.Migrations
 {
     [DbContext(typeof(EmailDbContext))]
-    [Migration("20230330044201_EmailDbContext-1.0")]
+    [Migration("20230401104011_EmailDbContext-1.0")]
     partial class EmailDbContext10
     {
         /// <inheritdoc />
@@ -46,7 +46,7 @@ namespace Amatsucozy.PMS.Email.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Placeholders")
+                    b.Property<string>("PlainBody")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -55,6 +55,10 @@ namespace Amatsucozy.PMS.Email.Infrastructure.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("xid")
                         .HasColumnName("xmin");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");

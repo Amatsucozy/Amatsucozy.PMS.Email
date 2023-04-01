@@ -43,7 +43,7 @@ namespace Amatsucozy.PMS.Email.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Placeholders")
+                    b.Property<string>("PlainBody")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -52,6 +52,10 @@ namespace Amatsucozy.PMS.Email.Infrastructure.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("xid")
                         .HasColumnName("xmin");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");

@@ -43,6 +43,18 @@ public sealed class SendGridApiEmailSender : IEmailSender
             htmlMessage);
 
         var response = await _sendGridClient.SendEmailAsync(email, cancellationToken);
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            _logger.LogInformation("Email sent successfully");
+        }
+        else
+        {
+            _logger.LogError("Email sending failed");
+            _logger.LogError(
+                "Message from email provider: {responseBody}",
+                await response.Body.ReadAsStringAsync(cancellationToken));
+        }
     }
 
     public async Task SendEmailsAsync(
@@ -74,6 +86,18 @@ public sealed class SendGridApiEmailSender : IEmailSender
                 .Select(r => new EmailAddress(r)).ToList());
         }
 
-        await _sendGridClient.SendEmailAsync(email, cancellationToken);
+        var response = await _sendGridClient.SendEmailAsync(email, cancellationToken);
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            _logger.LogInformation("Email sent successfully");
+        }
+        else
+        {
+            _logger.LogError("Email sending failed");
+            _logger.LogError(
+                "Message from email provider: {responseBody}",
+                await response.Body.ReadAsStringAsync(cancellationToken));
+        }
     }
 }

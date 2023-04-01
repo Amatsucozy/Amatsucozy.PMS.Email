@@ -1,2 +1,11 @@
 {
+  "profiles": {
+    "Amatsucozy.PMS.Email.Messaging": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
 }

@@ -6,16 +6,16 @@ using SendGrid.Helpers.Mail;
 
 namespace Amatsucozy.PMS.Email.Messaging.Services.EmailSenders;
 
-public sealed class SendgridApiEmailSender : IEmailSender
+public sealed class SendGridApiEmailSender : IEmailSender
 {
-    private readonly ILogger<SendgridApiEmailSender> _logger;
-    private readonly IOptionsMonitor<SendgridOptions> _optionsMonitor;
-    private readonly SendGridClient _sendGridClient;
+    private readonly ILogger<SendGridApiEmailSender> _logger;
+    private readonly IOptionsMonitor<SendGridOptions> _optionsMonitor;
+    private readonly ISendGridClient _sendGridClient;
 
-    public SendgridApiEmailSender(
-        SendGridClient sendGridClient,
-        IOptionsMonitor<SendgridOptions> optionsMonitor,
-        ILogger<SendgridApiEmailSender> logger)
+    public SendGridApiEmailSender(
+        ISendGridClient sendGridClient,
+        IOptionsMonitor<SendGridOptions> optionsMonitor,
+        ILogger<SendGridApiEmailSender> logger)
     {
         _sendGridClient = sendGridClient;
         _optionsMonitor = optionsMonitor;

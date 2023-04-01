@@ -1,6 +1,6 @@
 namespace Amatsucozy.PMS.Email.Messaging.Services.EmailSenders.Options;
 
-public sealed class SendgridOptions
+public sealed class SendGridOptions
 {
     public required string ApiKey { get; init; }
 

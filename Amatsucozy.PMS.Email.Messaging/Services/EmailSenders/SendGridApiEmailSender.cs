@@ -88,7 +88,7 @@ public sealed class SendGridApiEmailSender : IEmailSender
 
         var response = await _sendGridClient.SendEmailAsync(email, cancellationToken);
         
-        if (!response.IsSuccessStatusCode)
+        if (response.IsSuccessStatusCode)
         {
             _logger.LogInformation("Email sent successfully");
         }
